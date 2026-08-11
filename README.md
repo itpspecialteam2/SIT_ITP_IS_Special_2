@@ -24,13 +24,3 @@ This project investigates the feasibility of retrofitting **post-quantum cryptog
 - `network_diagram.jpg` - diagram documenting overall network architecture
 
 Each folder contains its own documentation and scripts, config files, etc.
-
-## Handover Notes (HOTO)
-
-1. **Known limitations to be aware of**:
-   - LoRaWAN radio link (sensor → gateway) is AES-128 only — outside current PQC scope.
-   - Home Assistant and go2rtc support PQ key exchange but **not** PQ authentication (their bundled OpenSSL doesn't support ML-DSA) — they rely on HAProxy/Nginx for PQ authentication.
-   - The LoRaWAN gateway's Python SDK is bundled with OpenSSL 1.0.2k — the AES-256 bridge route exists specifically to work around this.
-2. **Suggested next steps**:
-   - Recompile Home Assistant and go2rtc natively against a PQC-enabled OpenSSL build, removing the need for the proxy layer.
-   - Explore more open/programmable LoRaWAN hardware (e.g. a Raspberry Pi as a software-defined LoRaWAN end-node or gateway via ChirpStack) to extend the quantum-safe boundary down to the sensor layer.
