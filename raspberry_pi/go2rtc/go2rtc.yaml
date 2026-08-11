@@ -1,0 +1,18 @@
+# go2RTC configuration (running on laptop with Home Assistant stack)
+# Change JETSON_IP to your Jetson LAN IP (example: 192.168.1.50)
+
+streams:
+  occupancy_monitor:
+    - rtsps://192.168.0.105:18555/occupancy
+webrtc:
+  listen: ":8555"
+
+api:
+  listen: ""
+  tls_listen: ":1984"
+  tls_cert: /config/certs/server.crt
+  tls_key: /config/certs/server.key
+
+rtsp:
+  listen: ":8554"
+  default_query: "mp4"

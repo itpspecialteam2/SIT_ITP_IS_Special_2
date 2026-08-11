@@ -1,0 +1,136 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+additional_ca:
+  my_private_ca: ca.crt
+
+# Enable HTTPS
+http:
+  ssl_certificate: /config/ssl/fullchain.pem
+  ssl_key: /config/ssl/privkey.pem
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - ::1
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# Enable Python Scripts
+python_script:
+
+# Input Booleans for WS558 control
+input_boolean:
+  ws558_switch_1:
+    name: Lab Switch 1
+    icon: mdi:lightbulb
+  ws558_switch_2:
+    name: Lab Switch 2
+    icon: mdi:lightbulb
+  ws558_switch_3:
+    name: Lab Switch 3
+    icon: mdi:lightbulb
+  ws558_switch_4:
+    name: Lab Switch 4
+    icon: mdi:lightbulb
+  ws558_switch_5:
+    name: Lab Switch 5
+    icon: mdi:lightbulb
+  ws558_switch_6:
+    name: Lab Switch 6
+    icon: mdi:lightbulb
+  ws558_switch_7:
+    name: Lab Switch 7
+    icon: mdi:lightbulb
+  ws558_switch_8:
+    name: Lab Switch 8
+    icon: mdi:lightbulb
+
+mqtt:
+#  client_cert: /additional_ca/homeassistant.crt
+#  client_key: /additional_ca/homeassistant.key
+  sensor:
+    # --- Jetson Occupancy Monitor ---
+    - name: "Jetson Occupancy Count"
+      unique_id: "jetson_occupancy_count"
+      state_topic: "occupancy/monitor"
+      value_template: "{{ value_json.occupancy }}"
+      unit_of_measurement: "people"
+      icon: "mdi:account-multiple"
+      state_class: "measurement"
+      
+    - name: "Jetson Occupancy FPS"
+      unique_id: "jetson_occupancy_fps"
+      state_topic: "occupancy/monitor"
+      value_template: "{{ value_json.fps }}"
+      unit_of_measurement: "fps"
+      icon: "mdi:speedometer"
+      state_class: "measurement"
+
+    # --- AM103 Environmental Sensor ---
+    - name: "AM103 Battery"
+      unique_id: "am103_batt"
+      state_topic: "milesight/uplink/24e124725d480213"
+      value_template: "{{ value_json.battery }}"
+      unit_of_measurement: "%"
+      device_class: "battery"
+      state_class: "measurement"
+
+    - name: "AM103 Temperature"
+      unique_id: "am103_temp_lab"
+      state_topic: "milesight/uplink/24e124725d480213"
+      value_template: "{{ value_json.temperature }}"
+      unit_of_measurement: "°C"
+      device_class: "temperature"
+      state_class: "measurement"
+
+    - name: "AM103 Humidity"
+      unique_id: "am103_hum_lab"
+      state_topic: "milesight/uplink/24e124725d480213"
+      value_template: "{{ value_json.humidity }}"
+      unit_of_measurement: "%"
+      device_class: "humidity"
+      state_class: "measurement"
+
+    - name: "AM103 CO2"
+      unique_id: "am103_co2_lab"
+      state_topic: "milesight/uplink/24e124725d480213"
+      value_template: "{{ value_json.co2 }}"
+      unit_of_measurement: "ppm"
+      device_class: "carbon_dioxide"
+      state_class: "measurement"
+
+    # --- WS303 Battery ---
+    - name: "Lab Water Leak Battery"
+      unique_id: "ws303_batt"
+      state_topic: "milesight/uplink/24e124993d354039"
+      value_template: "{{ value_json.battery }}"
+      unit_of_measurement: "%"
+      device_class: "battery"
+
+    # --- WS101 Battery ---
+    - name: "Smart Button Battery"
+      unique_id: "ws101_batt"
+      state_topic: "milesight/uplink/24e124535d381111"
+      value_template: "{{ value_json.battery }}"
+      unit_of_measurement: "%"
+      device_class: "battery"
+
+  binary_sensor:
+    # --- WS303 Leak Detection ---
+    - name: "Lab Water Leak"
+      unique_id: "ws303_leak"
+      state_topic: "milesight/uplink/24e124993d354039"
+      value_template: "{{ 'ON' if value_json.leak == 1 else 'OFF' }}"
+      device_class: "moisture"
+
+    # --- WS101 Button Press ---
+    - name: "Smart Button Status"
+      unique_id: "ws101_status"
+      state_topic: "milesight/uplink/24e124535d381111"
+      value_template: "{{ 'ON' if value_json.press else 'OFF' }}"
