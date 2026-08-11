@@ -1,0 +1,24 @@
+# MediaMTX configuration for accepting RTSP streams
+
+# RTSP server settings
+rtspAddress: :8554
+protocols: [tcp]
+
+rtspsAddress: :8332
+
+# Path configuration - allows any stream to be published
+paths:
+  all:
+    source: publisher
+    sourceOnDemand: no
+    
+  # Specific path for occupancy stream
+  occupancy:
+    source: publisher
+    sourceOnDemand: no
+
+rtspEncryption: strict
+
+rtspServerKey: /server.key
+rtspServerCert: /server.crt
+

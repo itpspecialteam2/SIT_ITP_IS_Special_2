@@ -1,0 +1,23 @@
+services:
+  mediamtx:
+    container_name: mediamtx
+    image: bluenviron/mediamtx:latest
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml:ro
+      - ./server.crt:/server.crt:ro
+      - ./server.key:/server.key:ro
+    
+#  go2rtc:
+#    container_name: go2rtc
+#    image: alexxit/go2rtc:latest
+#    network_mode: host
+#    privileged: true
+#    restart: unless-stopped
+#    volumes:
+#      - ./go2rtc:/config
+#    environment:
+#      - TZ=Asia/Singapore
+#    depends_on:
+#      - mediamtx
