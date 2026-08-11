@@ -42,7 +42,7 @@ libcrypto.EVP_CIPHER_CTX_free.restype = None
 
 # Pre-shared key - 32 bytes = 256 bits
 # Must match AES_KEY in decrypt.py on the Pi exactly
-AES_KEY = b'SIT-ProjectIS1-PQC-AES256-Key12345'
+AES_KEY = b'REPLACE_WITH_YOUR_32_BYTE_KEY_HERE'
 
 def encrypt_aes256(plaintext, key):
     """
