@@ -1,4 +1,4 @@
-# LoRaWAN Gateway - Handover Documentation
+# LoRaWAN Gateway Documentation
 **Singapore Institute of Technology - ITP Project IS1 Team IS Special 2**
 
 ---
@@ -170,7 +170,7 @@ lorawan_gateway/
 
 ---
 
-## Key Notes for Next Team
+## Key Notes
 
 1. **`/tmp` is cleared on reboot.** All certificate files must be stored in `/home/pyuser/certs/`. Do not store anything important in `/tmp`.
 
