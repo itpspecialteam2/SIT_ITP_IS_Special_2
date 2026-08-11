@@ -36,7 +36,7 @@ from cryptography.hazmat.backends import default_backend
 
 # Pre-shared AES-256 key - must match encrypt.py on the gateway exactly
 # 32 bytes = 256 bits
-AES_KEY = b'SIT-ProjectIS1-PQC-AES256-Key12345'
+AES_KEY = b'REPLACE_WITH_YOUR_32_BYTE_KEY_HERE'
 
 # Mosquitto broker on the Pi
 # decrypt.py connects directly to Mosquitto using PQC certificates
